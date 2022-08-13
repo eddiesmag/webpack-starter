@@ -3,9 +3,9 @@
 > `npm i`
 
 ## Congif Environment variables
-> Create a `.env` file and add variables;
-`PORT = 3000;
-NODE_ENV = 'production';`
+> Create a `.env` file and add variables<br>
+`PORT=3000`<br>
+`NODE_ENV=production`
 
 ## Usage
 **Run Dev Server on Port 3000**
