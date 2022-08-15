@@ -1,14 +1,12 @@
-//this is to load env vars to this config
+const webpack = require('webpack');
 require('dotenv').config({ path: './.env' });
-// to pass env vars to the application
-const DotenvPlugin = require('webpack-dotenv-plugin');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const BundleAnalyzerPlugin =
   require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
-  mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
+  mode: process.env.NODE_ENV, // === 'production' ? 'production' : 'development',
   entry: {
     bundle: path.resolve(__dirname, 'src/index.js'),
   },
@@ -23,7 +21,7 @@ module.exports = {
     static: {
       directory: path.resolve(__dirname, 'dist'),
     },
-    port: 3000, // should be => process.env.PORT,
+    port: process.env.PORT,
     open: true,
     hot: true,
     compress: true,
@@ -58,10 +56,8 @@ module.exports = {
       template: 'src/template.html',
     }),
     new BundleAnalyzerPlugin(),
-    /**  from the DotenvPlugin documentation
-    new DotenvPlugin({
-      sample: './.env.default',
-      path: './.env',
-    }),*/
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify(process.env),
+    }),
   ],
 };
